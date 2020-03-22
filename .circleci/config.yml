@@ -8,8 +8,8 @@ jobs:
         - RAILS_ENV: 'test'
     - image: circleci/mysql:5.7
       environment:
-        - MYSQL_PASSWORD: 'password'
-        - MYSQL_USER: 'root'
+        - MYSQL_ALLOW_EMPTY_PASSWORD: true
+        - MYSQL_ROOT_PASSWORD: ''
         - MYSQL_ROOT_HOST: '127.0.0.1'
 
     working_directory: ~/sample_app 
@@ -33,6 +33,9 @@ jobs:
         paths:
         - ./vendor/bundle
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+    - run:
+        name: データベースの起動を待機
+        command: dockerize -wait tcp://127.0.0.1:4306 -
 
     # Database setup
     - run: rm ./config/database.yml
