@@ -6,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: root
     ports:
-      - "4306:3306"
+      - "3306:3306"
 
   web:
     build: .
@@ -14,7 +14,7 @@ services:
     environment:
       RAILS_ENV: development
     volumes:
-      - .:/sample_app #自身のアプリディレクトリ名を設定
+      - .:/sample_app
     ports:
       - "3000:3000"
     links:
