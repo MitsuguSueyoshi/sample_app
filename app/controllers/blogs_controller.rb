@@ -3,3 +3,4 @@ class BlogsController < ApplicationController
     @blogs = Blog.all
   end
 end
+
