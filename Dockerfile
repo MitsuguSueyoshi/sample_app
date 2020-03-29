@@ -19,3 +19,6 @@ ADD ./Gemfile.lock $APP_ROOT/Gemfile.lock
 #Gemfileのbundle installを実行
 RUN bundle install
 ADD . $APP_ROOT
+
+# puma.sockを配置するディレクトリを作成
+RUN mkdir -p tmp/sockets
