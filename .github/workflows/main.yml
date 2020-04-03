@@ -18,5 +18,5 @@ jobs:
     - name: Build and setup
       run: |
         bundle -j 4
-        rails yarn:install db:setup assets:precompile
-        rails test
+        bundle exec rails db:setup
+        bundle exec rails test
