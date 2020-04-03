@@ -1,0 +1,22 @@
+name: Test
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ruby:2.5.3
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up node and yarn
+      run: |
+        apt-get update
+        apt-get install apt-transport-https -y
+        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+        curl -sL https://deb.nodesource.com/setup_13.x | bash -
+        apt-get install -y yarn nodejs
+    - name: Build and setup
+      run: |
+        bundle -j 4
+        bundle exec rails db:setup
+        bundle exec rails test
